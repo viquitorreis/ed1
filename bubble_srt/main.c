@@ -9,12 +9,11 @@ int main() {
     readArr(arr, 8);
 }
 
-
 void bubbleSort(int *arr, int size) {
-    int i, val, temp;
-    for (val = size - 1; val >= 0; --val) {
+    int i, j, temp;
+    for (j = size - 1; j >= 0; --j) {
         // subir o maior número
-        for (i = 1; i <= val; ++i) {
+        for (i = 1; i <= j; ++i) {
             if (arr[i] < arr[i - 1]) {
                 // swap T[i-1] et T[i]
                 temp = arr[i];
