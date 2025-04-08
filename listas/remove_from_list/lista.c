@@ -1,34 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct {
-    int Data;
-} DataType;
-
-typedef struct Cell {
-    struct Cell *Next;
-    DataType *Data;
-} Cell;
-
-Cell* CreateInvertedList();
-Cell* InsertEndOfList(Cell* list, DataType *data);
-Cell* RemoveData(Cell *list);
-Cell* RemoveDataFromList(Cell *list, DataType *data);
-
-void ReadCellData(DataType *data);
-void ReadList(Cell* list);
-DataType* GetCellData();
-
-int main() {
-    Cell *L;
-    L = CreateInvertedList();
-    ReadList(L);
-
-    RemoveData(L);
-
-    printf("Resultado da nova lista: ");
-    ReadList(L);
-}
+#include "lista.h"
 
 void ReadCellData(DataType *data) {
     printf("%d ", data->Data);
@@ -77,7 +49,9 @@ Cell* RemoveData(Cell *list) {
     if (escolha != 1) return list;
 
     data = GetCellData();
-    return RemoveDataFromList(list, data);
+    // return RemoveDataFromList(list, data);
+    printf("data is: %d\n", data->Data);
+    return RemoveDataFromList2(list, data);
 }
 
 Cell* InsertEndOfList(Cell* list, DataType *data) {
@@ -145,3 +119,36 @@ Cell* RemoveDataFromList(Cell *list, DataType *data) {
     return list;
 }
 
+Cell* RemoveDataFromList2(Cell *list, DataType *data) {
+    Cell *current, *next, *pL;
+
+    current = list;
+
+    if (current == NULL) {
+        return list;
+    }
+    
+    if (current->Data->Data == data->Data) {
+        pL = current->Next;
+        free(current->Data);
+        free(current);
+        return pL;
+    }
+    
+    next = current->Next;
+    
+    while (next != NULL && next->Data->Data != data->Data) {
+        current = current->Next;
+        if (current != NULL) {
+            next = current->Next;
+        }
+    }
+    
+    if (next != NULL && next->Data->Data == data->Data) {
+        current->Next = next->Next;
+        free(next->Data);
+        free(next);
+    }
+
+    return list;
+}
