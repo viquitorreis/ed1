@@ -48,7 +48,7 @@ void recursion(int *arr, int imin, int imax) {
         recursion(arr, pivot+1, imax); // ordenando a parte direita do array
     }
 }
-
+    
 int partition(int *arr, int imin, int imax) {
     int pivot = arr[imin]; // pivô -> primeiro elemento
     int i = imin + 1;
